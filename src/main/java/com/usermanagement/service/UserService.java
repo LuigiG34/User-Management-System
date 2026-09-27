@@ -79,7 +79,7 @@ public class UserService {
 
     public long countActiveUsers() {
         return this.userRepository.findAll().values().stream()
-                .filter(user -> user.getStatus() == UserStatus.ACTIVE)
+                .filter(User::isActive)
                 .count();
     }
 
@@ -94,7 +94,7 @@ public class UserService {
 
     public List<UserDto> formatUsersToDtos() {
         return this.userRepository.findAll().values().stream()
-                .filter(user -> user.getStatus() == UserStatus.ACTIVE)
+                .filter(User::isActive)
                 .map(user -> new UserDto(user.getId(), user.getEmail(), user.getName()))
                 .collect(Collectors.toList());
     }
