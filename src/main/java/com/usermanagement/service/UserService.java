@@ -6,7 +6,7 @@ import com.usermanagement.model.User;
 import com.usermanagement.model.UserStatus;
 import com.usermanagement.dto.UserDto;
 import com.usermanagement.repository.InMemoryUserRepository;
-import com.usermanagement.notification.NotificationSender;
+import com.usermanagement.notification.ConsoleNotificationSender;
 
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -14,10 +14,10 @@ import java.util.List;
 
 public class UserService {
     
-    private NotificationSender notificationSender;
+    private ConsoleNotificationSender notificationSender;
     private InMemoryUserRepository userRepository;
 
-    public UserService(NotificationSender notificationSender, InMemoryUserRepository userRepository) {
+    public UserService(ConsoleNotificationSender notificationSender, InMemoryUserRepository userRepository) {
         this.notificationSender = notificationSender;
         this.userRepository = userRepository;
     }
@@ -97,5 +97,9 @@ public class UserService {
                 .filter(User::isActive)
                 .map(user -> new UserDto(user.getId(), user.getEmail(), user.getName()))
                 .collect(Collectors.toList());
+    }
+
+    public void deleteUserById(Long id) {
+        userRepository.deleteById(id);
     }
 }
