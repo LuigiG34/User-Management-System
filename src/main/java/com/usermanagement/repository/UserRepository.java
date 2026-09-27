@@ -2,12 +2,13 @@ package com.usermanagement.repository;
 
 import com.usermanagement.model.User;
 import java.util.Map;
+import java.util.Optional;
 
 public interface UserRepository {
 
     void save(User user);
     
-    User findById(Long id);
+    Optional<User> findById(Long id);
 
     Map<Long, User> findAll();
 
